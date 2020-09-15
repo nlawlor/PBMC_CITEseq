@@ -18,7 +18,7 @@ suppressPackageStartupMessages(library(enrichplot))
 
 ui <- dashboardPage(
   dashboardHeader(
-    title = "Characterizing gene/protein signatures of human PBMCs and heterogeneity of responses to immunological activation",
+    title = "Protein and transcriptional responses of blood derived human immune cells to diverse stimuli at single cell resolution",
     titleWidth = 1200
   ),
   ## Sidebar content
@@ -32,7 +32,7 @@ ui <- dashboardPage(
       menuItem("Response Pathways", tabName = "Response", icon = icon("reply")),
       menuItem("Trajectories", tabName = "Trajectory", icon = icon("route")),
       menuItem("Source Code/Questions?", icon = icon("file-code-o"), 
-               href = "https://github.com/nlawlor")
+               href = "https://github.com/nlawlor/PBMC_CITEseq")
     )
   ),
   
@@ -135,9 +135,9 @@ ui <- dashboardPage(
                   box(
                     title = "Select Response and Cell Type", 
                     selectInput(inputId = "cell_type", label = "Choose: ",
-                                choices = c("Bcell_Anti_IgG_IgM", "Bcell_Anti_CD3_CD28",
+                                choices = c("Bcell_Anti_CD3_CD28",
                                             "Monocyte_LPS_induced", "Monocyte_LPS_reduced",
-                                            "Monocyte_Anti_IgG_IgM", "NK_Anti_CD3_CD28",
+                                            "NK_Anti_CD3_CD28",
                                             "CD4T_naive_Anti_CD3_CD28", "CD4T_memory_Anti_CD3_CD28",
                                             "CD8T_naive_Anti_CD3_CD28", "CD8T_memory_Anti_CD3_CD28"), 
                                 selected = NULL,
@@ -185,10 +185,10 @@ ui <- dashboardPage(
                        box(
                          title = "Select Trajectory", 
                          selectInput(inputId = "traj_name", label = "Choose: ",
-                                     choices = c("Bcell_Anti_IgM_Anti_CD3", 
+                                     choices = c("Bcell_Anti_CD3",
                                                  "CD4T_Anti_CD3", "CD8T_Anti_CD3",
                                                  "NK_Anti_CD3",
-                                                 "Monocyte_LPS", "Monocyte_Anti_IgM_LPS"), 
+                                                 "Monocyte_LPS"), 
                                      selected = "Monocyte_LPS",
                                      multiple = FALSE),
                          width = 4),
@@ -316,7 +316,7 @@ server <- shinyServer(function(input, output, session) {
       # load in gene expression names
       if (is.null(dataTables$gene_exp_names)) {
         withProgress(message = "Loading gene symbols, please wait",
-                                   expr = dataTables$gene_exp_names <- readRDS("Data/gene.expression.names.Rds"))
+                                   expr = dataTables$gene_exp_names <- readRDS("Data/gene.expression.names.no.IgG.IgM.Rds"))
         
         # update gene choices
         updateSelectInput(session = session, inputId = "gen_sym", label = "Gene Symbol: ",
@@ -325,7 +325,7 @@ server <- shinyServer(function(input, output, session) {
         # load first expression matrix
         dataTables$gene_letter_choice <- substr(x = dataTables$gene_exp_names[1], start = 1, stop = 1)
         withProgress(message = "Loading gene expression data, please wait",
-                                                 expr = dataTables$gene_exp_data <- readRDS("Data/gene.expression.formatted.A.Rds"))
+                                                 expr = dataTables$gene_exp_data <- readRDS("Data/gene.expression.formatted.no.IgG.IgM.A.Rds"))
       }
       
       # load a gene expression matrix depending on the users choice of gene
@@ -366,7 +366,7 @@ server <- shinyServer(function(input, output, session) {
                 geom_boxplot() +
                 ylab("Log Normalized Gene Expression") +
                 xlab("") +
-                facet_wrap(~Treatment, nrow = 2) +
+                facet_wrap(~Treatment, nrow = 1) +
                 coord_flip() +
                 ggtitle(exp_sel$Symbol[1]) +
                 theme(plot.title = element_text(face = "italic"))
@@ -400,7 +400,7 @@ server <- shinyServer(function(input, output, session) {
       
       if (is.null(dataTables$adt_exp_data)) {
         # read in gene expression data
-        withProgress(expr = adt_df <- readRDS("Data/ADT.expression.formatted.Rds"),
+        withProgress(expr = adt_df <- readRDS("Data/ADT.expression.formatted.no.IgG.IgM.Rds"),
                                message = "Loading ADT expression data, please wait")
         # update gene choices
         updateSelectInput(session = session, inputId = "adt_sym", label = "ADT Symbol: ",
@@ -418,7 +418,7 @@ server <- shinyServer(function(input, output, session) {
                   geom_boxplot() +
                   ylab("Log Normalized ADT Expression") +
                   xlab("") +
-                  facet_wrap(~Treatment, nrow = 2) +
+                  facet_wrap(~Treatment, nrow = 1) +
                   coord_flip() +
                   ggtitle(adt_sel$Symbol[1])
                 plot(a1)
