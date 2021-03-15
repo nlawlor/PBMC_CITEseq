@@ -1,4 +1,4 @@
-# An R shiny application for visualization of human PBMC CITE-seq data at baseline and activation conditions
+# An R shiny application for visualization of human PBMC CITE-seq data at baseline and activation conditions (1. LPS or 2. anti-CD3 and anti-CD28)
 
 ## Overview of the App
 ![](https://github.com/nlawlor/PBMC_CITEseq/blob/master/Graphical.abstract.png)
