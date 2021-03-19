@@ -2,7 +2,7 @@
 
 ## Overview of the app and study design
 ![](https://github.com/nlawlor/PBMC_CITEseq/blob/master/Graphical.abstract.png)
-TBD
+
 
 ## App Availability
 
@@ -15,6 +15,8 @@ To learn more about this study and app please read our publication in *Frontiers
 ## Data Availability
 
 Genotype data for the 10 human donors is available for download at: https://www.ebi.ac.uk/ena/browser/view/PRJEB40448
+
+
 All raw fastq files for CITE-seq data (scRNA-seq, ADT, cell hashtag oligonucleotide) are available for download at: https://www.ebi.ac.uk/ena/browser/view/PRJEB40376
 
 
