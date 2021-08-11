@@ -19,5 +19,6 @@ Genotype data for the 10 human donors is available for download at: https://www.
 
 All raw fastq files for CITE-seq data (scRNA-seq, ADT, cell hashtag oligonucleotide) are available for download at: https://www.ebi.ac.uk/ena/browser/view/PRJEB40376
 
+All data is also available on the Human Cell Atlas Data Portal: https://data.humancellatlas.org/explore/projects/efea6426-510a-4b60-9a19-277e52bfa815
 
 
