@@ -6,7 +6,7 @@
 
 ## App Availability
 
-This app is free to use and hosted at: https://czi-pbmc-cite-seq.jax.org/
+This app is free to use and hosted at: https://thejacksonlaboratory.shinyapps.io/czi-pbmc-cite-seq
 
 ## Publication Link
 
